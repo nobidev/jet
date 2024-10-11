@@ -37,7 +37,7 @@ var (
 	safeWriterType = reflect.TypeOf(SafeWriter(nil))
 	pool_State     = sync.Pool{
 		New: func() interface{} {
-			return &Runtime{scope: &scope{}, escapeeWriter: new(escapeeWriter)}
+			return NewRuntime()
 		},
 	}
 )
@@ -78,6 +78,10 @@ type Runtime struct {
 	content func(*Runtime, Expression)
 
 	context reflect.Value
+}
+
+func NewRuntime() *Runtime {
+	return &Runtime{scope: &scope{}, escapeeWriter: new(escapeeWriter)}
 }
 
 // Context returns the current context value
